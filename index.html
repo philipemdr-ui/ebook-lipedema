@@ -80,6 +80,15 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1111452304966673&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){
+  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "z3iwqwivfo");
+</script>
+<!-- End Microsoft Clarity -->
 </head>
 <body>
 <div class="top">
@@ -183,6 +192,7 @@ src="https://www.facebook.com/tr?id=1111452304966673&ev=PageView&noscript=1"
     $('back').style.visibility=i?'visible':'hidden';
     var c=$('quiz');c.style.animation='none';void c.offsetWidth;c.style.animation='';
     bar(i);
+    try{clarity('event','quiz_pregunta_'+(i+1))}catch(e){}
   }
   function finish(){
     bar(N);
@@ -192,11 +202,12 @@ src="https://www.facebook.com/tr?id=1111452304966673&ev=PageView&noscript=1"
     else{lvl=3;tag='Varias coincidencias';title='Varias señales coinciden con lo descrito';text='Tus respuestas coinciden con muchas de las características más comentadas. Esto no es un diagnóstico, pero sí una buena razón para agendar una consulta con un profesional de la salud y llevar un registro claro de lo que notas.'}
     $('rtag').textContent=tag;$('rtitle').textContent=title;$('rtext').textContent=text+' ('+t+' de '+max+' puntos)';
     var m=$('meter');m.innerHTML='';for(var k=1;k<=3;k++){var s=document.createElement('i');if(k<=lvl)s.className='on';m.appendChild(s)}
+    try{clarity('event','quiz_resultado')}catch(e){}
     show('result');
   }
-  $('start').onclick=function(){i=0;sc=[];show('quiz');render()};
+  $('start').onclick=function(){try{clarity('event','quiz_inicio')}catch(e){}i=0;sc=[];show('quiz');render()};
   $('back').onclick=function(){if(i>0){i--;render()}};
-  Array.prototype.forEach.call(document.querySelectorAll('.buy'),function(a){a.href=CHECKOUT});
+  Array.prototype.forEach.call(document.querySelectorAll('.buy'),function(a){a.href=CHECKOUT;a.addEventListener('click',function(){try{clarity('event','clic_comprar')}catch(e){}})});
   $('y').textContent=new Date().getFullYear();
 })();
 </script>
